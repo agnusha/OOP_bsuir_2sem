@@ -1,6 +1,3 @@
-// OOP_bsuir_2sem.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 //1.    Разработать два класса А и В(не используя наследования).
 //В классе А содержится массив a.m[5].Класс В содержит : метод  poisk вычисляющий и сохраняющий
 //max и min значения элементов массива a.m[3](класса А) и статический метод swap() 
@@ -13,28 +10,65 @@
 //метод – поиска и замены местами первого и последнего слов в строке базового класса.
 
 #include <iostream>
+using namespace std;
 const int n = 5;
-
-int main()
-{
-    std::cout << "Hello World!\n";
-}
 
 class A {
     public:
+        A();
+        A(int z[]);
+        A(const A& obj);
+        ~A();
+        void input();
         int m[n];
 };
 
+A::A() = default;
+A::A(int z[])
+{
+    for (int i = 0; i < n; i++)
+    {
+        m[i] = z[i];
+    }
+}
+A::A(const A& obj)
+{
+    for (int i = 0; i < n; i++)
+    {
+        m[i] = obj.m[i];
+    }
+}
+A::~A()
+{
+    delete[] m;
+}
+void A::input()
+{
+    cout << "\n\t Please input array values" << endl;
+    for (int i = 0; i < n; i++)
+    {
+        cout << "\t a[" << i + 1 << "]=";
+        cin >> m[i];
+    }
+}
+
 class B {
+
 public:
+    B();
+    B(A a);
+    B(const B& obj);
 	static double swap(int min,int max);
     void poisk();
+    void printMaxMin();
 private:
+    A a;
     int min;
     int max;
-    A a;
 };
-
+B::B(A currentA) {
+    a = currentA;
+};
 double B::swap(int min, int max)
 {
     return (min + max) / 2.0;
@@ -71,7 +105,22 @@ void B::poisk()
 
 }
 
+void B::printMaxMin()
+{
+    cout << "Max: " <<max;
+    cout << "Min: " << min;
+}
 
+int main()
+{
+    cout << "Start program!\n";
+    A a;
+    a.input();
+
+    B b(a);
+    b.poisk();
+    b.printMaxMin();
+}
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu
