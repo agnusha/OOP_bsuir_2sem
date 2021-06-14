@@ -12,15 +12,18 @@
 #include <iostream>
 using namespace std;
 const int n = 5;
+const int nPoisk = 3;
 
 class A {
+    private:
+         int m[n];
     public:
         A();
         A(int z[]);
         A(const A& obj);
         ~A();
+        int getM(int index) { return m[index]; };
         void input();
-        int m[n];
 };
 
 A::A() = default;
@@ -38,10 +41,8 @@ A::A(const A& obj)
         m[i] = obj.m[i];
     }
 }
-A::~A()
-{
-    delete[] m;
-}
+A::~A() = default;
+
 void A::input()
 {
     cout << "\n\t Please input array values" << endl;
@@ -53,7 +54,6 @@ void A::input()
 }
 
 class B {
-
 public:
     B();
     B(A a);
@@ -61,6 +61,8 @@ public:
 	static double swap(int min,int max);
     void poisk();
     void printMaxMin();
+    int getMin() { return min; }
+    int getMax() { return max; }
 private:
     A a;
     int min;
@@ -78,37 +80,42 @@ void B::poisk()
 {
     if (n == 1)
     {
-        max = a.m[0];
-        min = a.m[0];
+        max = a.getM(0);
+        min = a.getM(0);
         return;
     }
 
-    if (a.m[0] > a.m[1])
+    if (a.getM(0) > a.getM(1))
     {
-        max = a.m[0];
-        min = a.m[1];
+        max = a.getM(0);
+        min = a.getM(1);
     }
     else
     {
-        max = a.m[1];
-        min = a.m[0];
+        max = a.getM(1);
+        min = a.getM(0);
     }
 
-    for (int i = 2; i < n; i++)
+    for (int i = 2; i < nPoisk; i++)
     {
-        if (a.m[i] > max)
-            max = a.m[i];
+        if (a.getM(i) > max)
+            max = a.getM(i);
 
-        else if (a.m[i] < min)
-            min = a.m[i];
+        else if (a.getM(i) < min)
+            min = a.getM(i);
     }
 
 }
 
 void B::printMaxMin()
 {
-    cout << "Max: " <<max;
-    cout << "Min: " << min;
+    cout << "\nMax: " <<max;
+    cout << "\nMin: " << min;
+}
+
+void printAverage(double average)
+{
+    cout << "\nAverage: " << average;
 }
 
 int main()
@@ -120,6 +127,9 @@ int main()
     B b(a);
     b.poisk();
     b.printMaxMin();
+
+    double average = B::swap(b.getMin(), b.getMax());
+    printAverage(average);
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
