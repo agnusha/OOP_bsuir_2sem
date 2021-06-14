@@ -2,8 +2,8 @@
 //
 
 //1.    Разработать два класса А и В(не используя наследования).
-//В классе А содержится массив m[5].Класс В содержит : метод  poisk вычисляющий и сохраняющий
-//max и min значения элементов массива m[3](класса А) и статический метод swap() 
+//В классе А содержится массив a.m[5].Класс В содержит : метод  poisk вычисляющий и сохраняющий
+//max и min значения элементов массива a.m[3](класса А) и статический метод swap() 
 //вычисляющее среднее арифметическое значений max и min.
 //2.    Создать 2 объекта  a и b, разработанного класса – символьная строка, реализовать 
 //перегрузку операции += (a += b, в объект а добавляются символы содержащиеся в b, но не содержащиеся в a).
@@ -21,17 +21,18 @@ int main()
 }
 
 class A {
-    protected:
+    public:
         int m[n];
 };
 
-class B: A {
+class B {
 public:
 	static double swap(int min,int max);
     void poisk();
 private:
     int min;
     int max;
+    A a;
 };
 
 double B::swap(int min, int max)
@@ -43,29 +44,29 @@ void B::poisk()
 {
     if (n == 1)
     {
-        max = m[0];
-        min = m[0];
+        max = a.m[0];
+        min = a.m[0];
         return;
     }
 
-    if (m[0] > m[1])
+    if (a.m[0] > a.m[1])
     {
-        max = m[0];
-        min = m[1];
+        max = a.m[0];
+        min = a.m[1];
     }
     else
     {
-        max = m[1];
-        min = m[0];
+        max = a.m[1];
+        min = a.m[0];
     }
 
     for (int i = 2; i < n; i++)
     {
-        if (m[i] > max)
-            max = m[i];
+        if (a.m[i] > max)
+            max = a.m[i];
 
-        else if (m[i] < min)
-            min = m[i];
+        else if (a.m[i] < min)
+            min = a.m[i];
     }
 
 }
