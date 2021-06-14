@@ -137,7 +137,13 @@ TextString::TextString(string currentText)
 }
 
 TextString& TextString::operator+=(const TextString& textString) {
-    text += textString.text;
+    for (int i = 0; i < textString.text.length(); ++i)
+    {
+        if (this->text.find(textString.text[i]) < textString.text.length())
+        {
+            text += textString.text[i];
+        }
+    }
     return *this;
 }
 
