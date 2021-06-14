@@ -17,19 +17,14 @@ const int nPoisk = 3;
 class A {
     private:
          int m[n];
-         string text;
     public:
         A();
         A(int z[]);
         A(const A& obj);
         ~A();
+
         int getM(int index) { return m[index]; };
         void input();
-
-        string getText() { return text; }
-        void setText(string currentText) { currentText = text; }
-
-        A& operator+=(A a);
 };
 
 A::A() = default;
@@ -49,11 +44,6 @@ A::A(const A& obj)
 }
 A::~A() = default;
 
-A& A::operator+=(A a) {
-    text += a.getText();
-    return *this;
-}
-
 void A::input()
 {
     cout << "\n\t Please input array values" << endl;
@@ -63,7 +53,6 @@ void A::input()
         cin >> m[i];
     }
 }
-
 
 class B {
 public:
@@ -78,18 +67,16 @@ public:
     int getMin() { return min; }
     int getMax() { return max; }
 
-    string getText() { return text; }
-    void setText(string currentText) { currentText = text; }
-
 private:
     A a;
     int min;
     int max;
-    string text;
 };
+
 B::B(A currentA) {
     a = currentA;
 };
+
 double B::swap(int min, int max)
 {
     return (min + max) / 2.03;
@@ -132,6 +119,29 @@ void B::printMaxMin()
     cout << "\nMin: " << min;
 }
 
+class TextString {
+public:
+    TextString() = default;
+    TextString(string currentText);
+
+    string getText() { return text; };
+    TextString& operator+=(const TextString& textString);
+
+private:
+    string text;
+};
+
+TextString::TextString(string currentText)
+{
+    text = currentText;
+}
+
+TextString& TextString::operator+=(const TextString& textString) {
+    text += textString.text;
+    return *this;
+}
+
+#pragma region General
 void printAverage(double average)
 {
     cout << "\nAverage: " << average;
@@ -142,7 +152,6 @@ void printText(string text)
     cout << "\Text: " << text;
 }
 
-
 string inputText()
 {
     string result;
@@ -151,23 +160,26 @@ string inputText()
     cin >> result;
     return result;
 }
+#pragma endregion
 
 int main()
 {
     cout << "Start program!\n";
-    A a;
-    a.input();
 
-    B b(a);
-    b.poisk();
-    b.printMaxMin();
+    //A a;
+    //a.input();
 
-    double average = B::swap(b.getMin(), b.getMax());
-    printAverage(average);
+    //B b(a);
+    //b.poisk();
+    //b.printMaxMin();
 
-    a.setText(inputText());
-    b.setText(inputText());
+    //double average = B::swap(b.getMin(), b.getMax());
+    //printAverage(average);
 
-    a += a;
-    printText(a.getText());
+    //string text1 = inputText();
+    TextString a1(inputText());
+    TextString b1(inputText());
+
+    a1 += b1;
+    printText(a1.getText());
 }
