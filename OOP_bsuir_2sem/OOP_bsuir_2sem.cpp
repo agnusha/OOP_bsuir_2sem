@@ -17,6 +17,7 @@ const int nPoisk = 3;
 class A {
     private:
          int m[n];
+         string text;
     public:
         A();
         A(int z[]);
@@ -24,6 +25,11 @@ class A {
         ~A();
         int getM(int index) { return m[index]; };
         void input();
+
+        string getText() { return text; }
+        void setText(string currentText) { currentText = text; }
+
+        A& operator+=(A a);
 };
 
 A::A() = default;
@@ -43,6 +49,11 @@ A::A(const A& obj)
 }
 A::~A() = default;
 
+A& A::operator+=(A a) {
+    text += a.getText();
+    return *this;
+}
+
 void A::input()
 {
     cout << "\n\t Please input array values" << endl;
@@ -53,27 +64,35 @@ void A::input()
     }
 }
 
+
 class B {
 public:
     B();
     B(A a);
     B(const B& obj);
+
 	static double swap(int min,int max);
     void poisk();
+
     void printMaxMin();
     int getMin() { return min; }
     int getMax() { return max; }
+
+    string getText() { return text; }
+    void setText(string currentText) { currentText = text; }
+
 private:
     A a;
     int min;
     int max;
+    string text;
 };
 B::B(A currentA) {
     a = currentA;
 };
 double B::swap(int min, int max)
 {
-    return (min + max) / 2.0;
+    return (min + max) / 2.03;
 }
 
 void B::poisk()
@@ -118,6 +137,21 @@ void printAverage(double average)
     cout << "\nAverage: " << average;
 }
 
+void printText(string text)
+{
+    cout << "\Text: " << text;
+}
+
+
+string inputText()
+{
+    string result;
+    cout << "\n\t Please input text" << endl;
+    cout << "\t";
+    cin >> result;
+    return result;
+}
+
 int main()
 {
     cout << "Start program!\n";
@@ -130,15 +164,10 @@ int main()
 
     double average = B::swap(b.getMin(), b.getMax());
     printAverage(average);
+
+    a.setText(inputText());
+    b.setText(inputText());
+
+    a += a;
+    printText(a.getText());
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
