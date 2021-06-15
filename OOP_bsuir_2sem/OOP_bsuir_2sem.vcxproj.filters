@@ -18,5 +18,8 @@
     <ClCompile Include="OOP_bsuir_2sem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StringWorker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

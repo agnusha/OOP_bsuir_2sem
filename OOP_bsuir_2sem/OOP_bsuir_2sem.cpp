@@ -10,6 +10,7 @@
 //метод – поиска и замены местами первого и последнего слов в строке базового класса.
 
 #include <iostream>
+#include "StringWorker.cpp"
 using namespace std;
 const int n = 5;
 const int nPoisk = 3;
@@ -79,7 +80,7 @@ B::B(A currentA) {
 
 double B::swap(int min, int max)
 {
-    return (min + max) / 2.03;
+    return (min + max) / 2.0;
 }
 
 void B::poisk()
@@ -139,7 +140,7 @@ TextString::TextString(string currentText)
 TextString& TextString::operator+=(const TextString& textString) {
     for (int i = 0; i < textString.text.length(); ++i)
     {
-        if (this->text.find(textString.text[i]) < textString.text.length())
+        if (this->text.find(textString.text[i]) > textString.text.length())
         {
             text += textString.text[i];
         }
@@ -172,20 +173,24 @@ int main()
 {
     cout << "Start program!\n";
 
-    //A a;
-    //a.input();
+    A a;
+    a.input();
 
-    //B b(a);
-    //b.poisk();
-    //b.printMaxMin();
+    B b(a);
+    b.poisk();
+    b.printMaxMin();
 
-    //double average = B::swap(b.getMin(), b.getMax());
-    //printAverage(average);
+    double average = B::swap(b.getMin(), b.getMax());
+    printAverage(average);
 
-    //string text1 = inputText();
     TextString a1(inputText());
     TextString b1(inputText());
 
     a1 += b1;
     printText(a1.getText());
+    StringWorker s(inputText());
+
+    cout << s.get_str() << endl;
+    s.swap();
+    cout << s.get_str() << endl;
 }
